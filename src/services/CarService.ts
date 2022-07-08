@@ -9,7 +9,7 @@ class CarService extends Service<Car> {
 
   create = async (body: Car): Promise<Car | ServiceError | null> => {
     const parsed = CarSchema.safeParse(body);
-    
+
     if (!parsed.success) return { error: parsed.error };
 
     return this.model.create(body);
@@ -18,7 +18,7 @@ class CarService extends Service<Car> {
   readOne = async (id: string): Promise<Car | null> => {
     if (id.length < 24) return null;
     const carById = await this.model.readOne(id);
-    if (!carById) throw new Error('Object not found'); 
+    if (!carById) throw new Error('Object not found');
     return carById;
   };
 
@@ -31,12 +31,23 @@ class CarService extends Service<Car> {
 
     if (id.length < 24) return null;
 
-    const car = await this.model.update(id, body);    
+    const car = await this.model.update(id, body);
     if (!car) {
       throw new Error('Object not found');
-    }  
+    }
 
     return car;
+  };
+
+  delete = async (id: string): Promise<Car | null> => {
+    if (id.length < 24) return null;
+    
+    const deleteCar = await this.model.delete(id);
+    if (!deleteCar) {
+      throw new Error('Object not found');
+    }
+
+    return deleteCar;
   };
 }
 
