@@ -2,6 +2,9 @@ import Service, { ServiceError } from '.';
 import { Car, CarSchema } from '../interfaces/CarInterface';
 import CarModel from '../models/CarModel';
 
+// ES Lint: Define a constant instead of duplicating this literal 3 times
+const objectNotFound = 'Object not found';
+
 class CarService extends Service<Car> {
   constructor(carModel = new CarModel()) {
     super(carModel);
@@ -18,7 +21,7 @@ class CarService extends Service<Car> {
   readOne = async (id: string): Promise<Car | null> => {
     if (id.length < 24) return null;
     const carById = await this.model.readOne(id);
-    if (!carById) throw new Error('Object not found');
+    if (!carById) throw new Error(objectNotFound);
     return carById;
   };
 
@@ -33,7 +36,7 @@ class CarService extends Service<Car> {
 
     const car = await this.model.update(id, body);
     if (!car) {
-      throw new Error('Object not found');
+      throw new Error(objectNotFound);
     }
 
     return car;
@@ -44,7 +47,7 @@ class CarService extends Service<Car> {
     
     const deleteCar = await this.model.delete(id);
     if (!deleteCar) {
-      throw new Error('Object not found');
+      throw new Error(objectNotFound);
     }
 
     return deleteCar;
