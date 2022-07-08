@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const VehicleSchema = z.object({
+export const VehicleSchema = z.object({
   model: z.string({
     required_error: 'Model is required',
     invalid_type_error: 'Model must be a string',
@@ -22,11 +22,3 @@ const VehicleSchema = z.object({
 });
 
 export type Vehicle = z.infer<typeof VehicleSchema>;
-
-// export interface Vehicle {
-//   model: string;
-//   year: number;
-//   color: string;
-//   status?: boolean;
-//   buyValue: number;
-// }
