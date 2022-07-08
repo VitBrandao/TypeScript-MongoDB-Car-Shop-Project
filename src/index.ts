@@ -1,3 +1,3 @@
-// import server from './server-example';
+import server from './server';
 
-// server.startServer();
+server.startServer();
