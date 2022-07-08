@@ -10,7 +10,7 @@ const CarSchema = new Schema<Car>({
   buyValue: { type: Number, required: true },
   doorsQty: { type: Number, required: true },
   seatsQty: { type: Number, required: true },
-});
+}, { versionKey: false });
 
 class CarModel extends MongoModel<Car> {
   constructor(private carModel = createModel<Car>('Car', CarSchema)) {
