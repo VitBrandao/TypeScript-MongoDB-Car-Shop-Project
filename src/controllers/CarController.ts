@@ -50,6 +50,29 @@ class CarController extends Controller<Car> {
       return res.status(404).json({ error: this.errors.notFound });
     }
   };
+
+  update = async (
+    req: RequestWithBody<Car>,
+    res: Response<Car | ResponseError | null>,
+  ): Promise<typeof res> => {
+    const { body } = req;
+    const { id } = req.params;
+    console.log(body);
+    try {
+      const updateCar = await this.service.update(id, body);
+
+      if (!updateCar) {
+        return res.status(400).json({ error: this.errors.idLengthError });
+      }
+      console.log('chegou');
+      if ('error' in updateCar) return res.status(400).json(updateCar);
+
+      return res.status(200).json(updateCar);
+    } catch (error) {
+      console.log(error);
+      return res.status(404).json({ error: this.errors.notFound });
+    }
+  };
 }
 
 export default CarController;
