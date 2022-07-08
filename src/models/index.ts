@@ -13,6 +13,8 @@ abstract class MongoModel<T> implements Model<T> {
   }
 
   async readOne(id: string): Promise<T | null> {
+    if (!isValidObjectId(id)) return null;
+    
     return this.model.findOne({ _id: id });
   }
 
